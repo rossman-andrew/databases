@@ -6,6 +6,7 @@ module.exports = {
       var sqlQuery = 'SELECT * FROM messages';
       db.connection.query(sqlQuery, function(err, data) {
         if (err) {
+          console.log('there was an error');
           callback(err, null);
         } else {
           callback(null, data);
@@ -13,13 +14,14 @@ module.exports = {
       });
     }, // a function which produces all the messages
     post: function (data, callback) {
-      var username;
+      console.log('HELLO!!!!');
+      // var username = data;
       var message;
       var room;
       var timeStamp;
       var roomId = `SELECT room_name from rooms WHERE room_name = ${room};`;
       var userId = `SELECT username FROM user_names WHERE username = ${username};`;
-      var messageTableInsert = `INSERT INTO messages (messageText, user_id, room_id, timeCreated) VALUES (${message}, ${userId}, ${roomId}, ${timeStamp});`;
+      var messageTableInsert = `INSERT INTO messages (message_text, user_id, room_id, timeCreated) VALUES (${message}, ${userId}, ${roomId}, ${timeStamp});`;
       db.connection.query(messageTableInsert, function(err, data) {
         if (err) {
           callback(err, null);
@@ -43,8 +45,10 @@ module.exports = {
       });      
     },
     post: function (data, callback) {
-      var username;
-      var userTableInsert = `INSERT INTO user_names (username) VALUES (${username});`;
+      var usernameData = data.username;
+      console.log('usernameData: ', typeof usernameData);
+      //console.log('user_name: ', user_name);
+      var userTableInsert = `INSERT INTO user_names (user_name) VALUES (${usernameData})`;
       db.connection.query(userTableInsert, function(err, data) {
         if (err) {
           callback(err, null);
@@ -55,4 +59,10 @@ module.exports = {
     }
   }
 };
+
+
+
+// INSERT INTO rooms (room_name) VALUES ('plant');
+// INSERT INTO user_names (username) VALUES ('John');
+// INSERT INTO messages (message_text, user_id, room_id, timeCreated) VALUES ('hello world', 1, 1, 3);
 

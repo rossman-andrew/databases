@@ -1,3 +1,5 @@
+DROP DATABASE chat;
+
 CREATE DATABASE chat;
 
 USE chat;
@@ -6,7 +8,7 @@ DROP TABLE IF EXISTS user_names;
 
 CREATE TABLE user_names (
   id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  username varchar(1000) NOT NULL
+  user_name varchar(1000) NOT NULL
 );
 
 DROP TABLE IF EXISTS rooms;
@@ -24,7 +26,7 @@ CREATE TABLE messages (
   message_text varchar(1000) NOT NULL,
   user_id int NOT NULL,
   room_id int NOT NULL,
-  timeCreated timestamp NOT NULL,
+  timeCreated int NOT NULL,                   /*change int back to timestamp*/
   FOREIGN KEY (user_id) REFERENCES user_names(id),
   FOREIGN KEY (room_id) REFERENCES rooms(id)
 );

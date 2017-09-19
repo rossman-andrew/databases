@@ -6,7 +6,7 @@ var mysql = require('mysql');
 
 
 var connection = mysql.createConnection({
-  host: '../schema.sql',
+  database: 'chat',
   user: 'root',
   password: 'plantlife'
 });
