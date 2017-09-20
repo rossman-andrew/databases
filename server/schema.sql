@@ -1,4 +1,4 @@
-DROP DATABASE chat;
+DROP DATABASE IF EXISTS chat;
 
 CREATE DATABASE chat;
 
@@ -8,14 +8,14 @@ DROP TABLE IF EXISTS user_names;
 
 CREATE TABLE user_names (
   id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  user_name varchar(1000) NOT NULL
+  user_name varchar(1000) NOT NULL DEFAULT 'anonymous'
 );
 
 DROP TABLE IF EXISTS rooms;
 
 CREATE TABLE rooms (
   id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  room_name varchar(1000) NOT NULL
+  room_name varchar(1000) NOT NULL DEFAULT 'lobby'
 );
 
 DROP TABLE IF EXISTS messages;
@@ -25,8 +25,7 @@ CREATE TABLE messages (
   id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
   message_text varchar(1000) NOT NULL,
   user_id int NOT NULL,
-  room_id int NOT NULL,
-  timeCreated int NOT NULL,                   /*change int back to timestamp*/
+  room_id int NOT NULL,                  /*change int back to timestamp*/
   FOREIGN KEY (user_id) REFERENCES user_names(id),
   FOREIGN KEY (room_id) REFERENCES rooms(id)
 );
