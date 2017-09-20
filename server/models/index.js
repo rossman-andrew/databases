@@ -3,7 +3,7 @@ var db = require('../db');
 module.exports = {
   messages: {
     get: function (callback) {
-      var sqlQuery = 'SELECT * FROM messages';
+      var sqlQuery = 'SELECT messages.message_text, rooms.room_name, user_names.user_name FROM messages, rooms, user_names WHERE messages.user_id = user_names.id AND messages.room_id = rooms.id;';
       db.connection.query(sqlQuery, function(err, data) {
         if (err) {
           console.log('there was an error');

@@ -64,6 +64,10 @@ var app = {
       data: { order: '-createdAt' },
       dataType: 'json',
       success: function(data) {
+        data = {
+          results: data
+        };
+        console.log('data: ', data, 'data.results: ', data.results, 'type: ', typeof data.results);
         // Don't bother if we have nothing to work with
         if (!data.results || !data.results.length) { return; }
 
@@ -145,8 +149,8 @@ var app = {
   },
 
   renderMessage: function(message) {
-    if (!message.roomname) {
-      message.roomname = 'lobby';
+    if (!message.room_name) {
+      message.room_name = 'lobby';
     }
 
     // Create a div to hold the chats
@@ -155,15 +159,15 @@ var app = {
     // Add in the message data using DOM methods to avoid XSS
     // Store the username in the element's data attribute
     var $username = $('<span class="username"/>');
-    $username.text(message.username + ': ').attr('data-roomname', message.roomname).attr('data-username', message.username).appendTo($chat);
+    $username.text(message.user_name + ': ').attr('data-roomname', message.room_name).attr('data-username', message.user_name).appendTo($chat);
 
     // Add the friend class
-    if (app.friends[message.username] === true) {
+    if (app.friends[message.user_name] === true) {
       $username.addClass('friend');
     }
 
     var $message = $('<br><span/>');
-    $message.text(message.text).appendTo($chat);
+    $message.text(message.message_text).appendTo($chat);
 
     // Add the message to the UI
     app.$chats.append($chat);

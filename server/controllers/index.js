@@ -22,7 +22,7 @@ module.exports = {
           // Find out what form the data comes in.
           console.log('there was no error');
           res.writeHead(200, headers);
-          res.end(data.toString());
+          res.end(JSON.stringify(data));
         }
       });
     }, // a function which handles a get request for all messages
